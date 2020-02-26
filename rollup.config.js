@@ -1,6 +1,5 @@
 import { eslint } from 'rollup-plugin-eslint'
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
-import { terser } from 'rollup-plugin-terser'
 import babel from 'rollup-plugin-babel'
 import notify from 'rollup-plugin-notify'
 import progress from 'rollup-plugin-progress'
@@ -31,18 +30,4 @@ export default [
       notify(),
     ],
   },
-  // {
-  //   input: 'dist/extension.js',
-  //   output: {
-  //     file: 'dist/extension.min.js',
-  //     format: 'umd',
-  //     name,
-  //   },
-  //   plugins: [
-  //     progress(),
-  //     terser(),
-  //     sizeSnapshot(),
-  //     notify(),
-  //   ],
-  // },
 ]
