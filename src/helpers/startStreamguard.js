@@ -1,16 +1,16 @@
 // Module imports
-
-/* eslint-disable-next-line import/no-unresolved */
+/* eslint-disable import/no-unresolved */
 import {
   window,
   workspace,
 } from 'vscode'
+/* eslint-enable import/no-unresolved */
 
 
 
 
 
-export default async () => {
+const start = async () => {
   const workspaceConfiguration = workspace.getConfiguration()
   const updatedFileExludes = { ...workspaceConfiguration.files.exclude }
   const { filesToGuard } = workspaceConfiguration.streamguard
@@ -27,3 +27,9 @@ export default async () => {
     return window.showInformationMessage('Failed to start StreamGuard... 😭')
   }
 }
+
+
+
+
+
+export default start

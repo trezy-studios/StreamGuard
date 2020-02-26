@@ -1,12 +1,11 @@
 // Module imports
-
-/* eslint-disable-next-line import/no-unresolved */
-import path from 'path'
+/* eslint-disable import/no-unresolved */
 import {
   commands,
   window,
   workspace,
 } from 'vscode'
+/* eslint-enable import/no-unresolved */
 
 
 
@@ -38,7 +37,7 @@ export const activate = context => {
       return window.showInformationMessage('StreamGuard isn\'t active!')
     }
 
-    workspace.getConfiguration().update('streamguard.isActive', false, true)
+    return workspace.getConfiguration().update('streamguard.isActive', false, true)
   }))
 
   workspace.onDidChangeConfiguration(event => {
@@ -51,6 +50,8 @@ export const activate = context => {
 
       return stopStreamguard()
     }
+
+    return false
   })
 }
 
