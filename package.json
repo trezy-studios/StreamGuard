@@ -1,0 +1,80 @@
+{
+	"name": "streamguard",
+	"displayName": "StreamGuard",
+	"description": "GUARD YO STREAM",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.41.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"category": "StreamGuard",
+				"command": "extension.startStreamGuard",
+				"title": "Start"
+			},
+			{
+				"category": "StreamGuard",
+				"command": "extension.stopStreamGuard",
+				"title": "Stop"
+			}
+		],
+    "configuration": {
+      "title": "StreamGuard",
+      "properties": {
+        "streamguard.isActive": {
+          "type": "boolean",
+          "default": false,
+					"description": "Is StreamGuard currently guarding files?"
+        },
+        "streamguard.filesToGuard": {
+          "type": ["array"],
+          "default": [".env"],
+          "description": "Files to guard while your channel is live."
+        }
+      }
+    }
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "rollup -c",
+		"watch": "rollup -c",
+		"pretest": "yarn run compile",
+		"test": "node ./dist/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.41.0",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"@babel/core": "^7.8.3",
+		"@fuelrats/eslint-config": "^1.2.2",
+		"babel-eslint": "^10.0.3",
+		"eslint": "^6.8.0",
+		"eslint-plugin-babel": "^5.3.0",
+		"eslint-plugin-import": "^2.20.0",
+		"rollup": "^1.30.1",
+		"rollup-plugin-babel": "^4.3.3",
+		"rollup-plugin-eslint": "^7.0.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-notify": "^1.1.0",
+		"rollup-plugin-progress": "^1.1.1",
+		"rollup-plugin-size-snapshot": "^0.10.0",
+		"rollup-plugin-terser": "^5.2.0",
+		"rollup-plugin-visualizer": "^3.3.1"
+	}
+}

@@ -1,0 +1,6 @@
+stats.html
+.size-snapshot.json
+dist/
+node_modules/
+.vscode-test/
+*.vsix
