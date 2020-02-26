@@ -12,6 +12,7 @@ import {
 
 
 // Local imports
+import getTwitchClient from './helpers/getTwitchClient'
 import startStreamguard from './helpers/startStreamguard'
 import stopStreamguard from './helpers/stopStreamguard'
 
@@ -21,16 +22,28 @@ import stopStreamguard from './helpers/stopStreamguard'
 
 export const activate = context => {
   context.subscriptions.push(commands.registerCommand('extension.startStreamGuard', () => {
+    const twitchClient = getTwitchClient()
+
+    if (!twitchClient) {
+      return window.showInformationMessage('StreamGuard isn\'t configured yet!')
+    }
+
     const { isActive } = workspace.getConfiguration().streamguard
 
     if (isActive) {
       return window.showInformationMessage('StreamGuard is already active!')
     }
 
-    workspace.getConfiguration().update('streamguard.isActive', true, true)
+    return workspace.getConfiguration().update('streamguard.isActive', true, true)
   }))
 
   context.subscriptions.push(commands.registerCommand('extension.stopStreamGuard', () => {
+    const twitchClient = getTwitchClient()
+
+    if (!twitchClient) {
+      return window.showInformationMessage('StreamGuard isn\'t configured yet!')
+    }
+
     const { isActive } = workspace.getConfiguration().streamguard
 
     if (!isActive) {
@@ -40,8 +53,15 @@ export const activate = context => {
     return workspace.getConfiguration().update('streamguard.isActive', false, true)
   }))
 
-  workspace.onDidChangeConfiguration(event => {
+  workspace.onDidChangeConfiguration(async event => {
     if (event.affectsConfiguration('streamguard.isActive')) {
+      const twitchClient = getTwitchClient()
+
+      if (!twitchClient) {
+        await workspace.getConfiguration().update('streamguard.isActive', false, true)
+        return window.showInformationMessage('StreamGuard isn\'t configured yet!')
+      }
+
       const { isActive } = workspace.getConfiguration().streamguard
 
       if (isActive) {
